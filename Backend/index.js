@@ -8,7 +8,7 @@ import cors from "cors";
 import path from "path";
 import cookieParser from "cookie-parser";
 import { fileURLToPath } from "url";
-import { app, server } from "./socketIO/Server.js";
+import { app, server } from "./socketIO/server.js";
 
 // For __dirname support
 const __filename = fileURLToPath(import.meta.url);
