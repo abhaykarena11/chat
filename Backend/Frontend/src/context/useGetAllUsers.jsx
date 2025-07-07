@@ -1,40 +1,41 @@
-import { useState } from 'react'
-import { useEffect } from 'react';
+import { useState } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 
-export default function useGetAllUsers (){
-    const [allUsers, setAllUsers] = useState([]);
-    const [loading, setLoading] = useState(false);
+export default function useGetAllUsers() {
+  const [allUsers, setAllUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
-        const fetchUsers = async () => {
-            setLoading(true);
-            try {
-                const token = Cookies.get("token");
+  useEffect(() => {
+    const fetchUsers = async () => {
+      setLoading(true);
+      try {
+        const token = Cookies.get("token");
 
-                if(token){
-                    const response = await axios.get("http://localhost:5000/user/getAllUsers",{
-                        withCredentials: true,
-                        headers: {
-                            Authorization: `Bearer ${token}`, // Replace YOUR_ACCESS_TOKEN with the actual token
-                        },
-                    });
-                    setAllUsers(response.data.allUsers);
-                }
-            } catch (error) {
-                console.error("Error fetching users: " + error);
-            } finally {
-                setLoading(false);
+        if (token) {
+          const response = await axios.get(
+            "https://chat-6iyh.onrender.com/user/getAllUsers",
+            {
+              withCredentials: true,
+              headers: {
+                Authorization: `Bearer ${token}`, // Replace YOUR_ACCESS_TOKEN with the actual token
+              },
             }
-        };
+          );
+          setAllUsers(response.data.allUsers);
+        }
+      } catch (error) {
+        console.error("Error fetching users: " + error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-        fetchUsers();
-    }, []);
+    fetchUsers();
+  }, []);
 
-    useEffect(() => {
-        
-    }, [allUsers]);
+  useEffect(() => {}, [allUsers]);
 
-    return [ allUsers, loading ];
-};
+  return [allUsers, loading];
+}
