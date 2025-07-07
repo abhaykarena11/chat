@@ -24,9 +24,14 @@ export default function Logout() {
     }
   }
   return (
-    <div className="w-[4%] bg-slate-900 text-white flex flex-col justify-end" >
-        <div className="hover:bg-gray-700 hover:rounded-lg duration-300 w-7 h-7 flex items-center cursor-pointer mx-auto mb-3">
-          <CiLogout className="mx-auto" onClick={logOut}/>
+    <div className="w-[4%] glass-dark text-white flex flex-col justify-end shadow-glow mr-2" >
+        <div className="p-3 flex justify-center items-center">
+          <button 
+            onClick={logOut}
+            className="modern-button-secondary p-3 rounded-full hover:scale-105 smooth-transition w-10 h-10 flex items-center justify-center"
+          >
+            <CiLogout className="text-xl" />
+          </button>
         </div>
     </div>
   )

@@ -1,18 +1,18 @@
 // Form.js
-
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import InputField from './InputField';
-import { FaUser, FaEnvelope, FaLock } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
-const FormSignup = () => {
+import {  FaEnvelope, FaLock } from 'react-icons/fa';
+
+const FormLogin = () => {
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) =>{
     e.preventDefault();
 
-    console.log(" i  am here !");
     try {
-      const response = await fetch('http://localhost:5000/user/signup', {
+      const response = await fetch('http://localhost:5000/user/login', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json'
@@ -22,13 +22,10 @@ const FormSignup = () => {
           body: JSON.stringify(formData) // Ensure the body is a string
       });
       const data = await response.json();
-      
       if(data.success){
-       console.log("success");
        navigate("/");
       }
       else{
-        console.log("error in signup")
         console.log(data.message);
       }
       
@@ -39,28 +36,23 @@ const FormSignup = () => {
   
   }
 
-    const [formData,setformData] = useState({
-        "name":"",
+  const [formData,setformData] = useState({
         "email":"",
-        "password":"",
-        "confirmPassword":""
+        "password":""
     })
   return (
-    <form className="space-y-4" onSubmit={handleSubmit}>
-      <InputField icon={FaUser} type="text" name="name" placeholder="Full Name" formData={formData} setformData={setformData}/>
+    <form className="space-y-6" onSubmit={handleSubmit}>
       <InputField icon={FaEnvelope} type="email" name="email" placeholder="Email Address" formData={formData} setformData={setformData}/>
       <InputField icon={FaLock} type="password" name="password" placeholder="Password" formData={formData} setformData={setformData}/>
-      <InputField icon={FaLock} type="password" name="confirmPassword" placeholder="Confirm Password" formData={formData} setformData={setformData}/>
       <button
-
-        type='submit'
-        className="w-full py-2 bg-blue-600 text-green-100 rounded hover:bg-blue-700"
-        
+        type="submit"
+        className="modern-button w-full py-3 text-lg font-semibold hover:scale-105 smooth-transition"
+        onClick={handleSubmit}
       >
-        Sign Up
+        Sign In
       </button>
     </form>
   );
 };
 
-export default FormSignup;
+export default FormLogin;

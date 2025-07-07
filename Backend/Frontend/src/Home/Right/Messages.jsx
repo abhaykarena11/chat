@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import useGetSocketMessage from "../../context/useGetSocketMessage";
 
 export default function Messages() {
-  const {messages} = useGetMessages();
+  const {messages=[] } = useGetMessages();
   useGetSocketMessage();
   const lastMessageRef = useRef();
 
@@ -27,16 +27,23 @@ export default function Messages() {
   }, [messages,isUserScrolling]); // Trigger on `messages` array change.
 
   return (
-    <div className="mt-2 ml-4 h-[calc(83vh-10vh)] overflow-auto scrollbar-hide"  ref={lastMessageRef} onScroll={handleScroll}>
-        {
-          messages && messages.length >0 ? 
-          messages.map((msg)=>{
-           return <div key={msg._id} >
-               <Message  msg={msg}></Message>
+    <div className="flex-1 overflow-auto custom-scrollbar p-4" ref={lastMessageRef} onScroll={handleScroll}>
+      {messages.length === 0 ? (
+        <div className="flex items-center justify-center h-full">
+          <div className="text-center">
+            <div className="text-4xl mb-2">💭</div>
+            <p className="text-white/60">No messages yet. Start the conversation!</p>
+          </div>
+        </div>
+      ) : (
+        <div className="space-y-4">
+          {messages.map((msg) => (
+            <div key={msg._id}>
+              <Message msg={msg}></Message>
             </div>
-            
-          }): <div className="flex justify-center items-center h-[calc(100vh-90px)]">send some msg</div>
-        }
+          ))}
+        </div>
+      )}
     </div>
   )
 }

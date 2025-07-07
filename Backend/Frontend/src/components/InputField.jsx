@@ -1,4 +1,3 @@
-
 const InputField = ({ icon: Icon, type, placeholder ,formData , name, setformData }) => {
     function changeHandler(e){
         setformData({
@@ -8,12 +7,14 @@ const InputField = ({ icon: Icon, type, placeholder ,formData , name, setformDat
     }
   return (
     <div className="relative">
-      <Icon className="absolute left-3 top-3 " />
+      <div className="absolute left-6 top-1/2 transform -translate-y-1/2 text-white/60 z-10">
+        <Icon className="text-lg" />
+      </div>
       <input
         type={type}
         name={name}
         placeholder={placeholder}
-        className="w-full pl-10 pr-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-black-500"
+        className="w-full bg-white/10 border border-white/20 rounded-full py-3 pl-16 pr-6 text-white placeholder-white/60 backdrop-blur-md transition-all duration-300 focus:outline-none focus:border-purple-400 focus:shadow-glow"
         value={formData[name]}
         onChange={changeHandler}
       />
